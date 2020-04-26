@@ -2,26 +2,25 @@
 
 namespace GeoReader.Entities
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 96, CharSet = CharSet.Ansi)]
-    public struct Location
+    public class Location
     {
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 8)]
-        public string country; // название страны (случайная строка с префиксом "cou_")
+        public Location(string country, string region, string postal, string city, string organization, float latitude, float longitude)
+        {
+            Country = country;
+            Region = region;
+            Postal = postal;
+            City = city;
+            Organization = organization;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 12)]
-        public string region; // название области (случайная строка с префиксом "reg_")
-
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 12)]
-        public string postal; // почтовый индекс (случайная строка с префиксом "pos_")
-
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 24)]
-        public string city; // название города (случайная строка с префиксом "cit_")
-
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-        public string organization; // название организации (случайная строка с префиксом "org_")
-
-        public float latitude; // широта
-
-        public float longitude; // долгота
-    }
+        public string Country { get; } // название страны (случайная строка с префиксом "cou_")
+        public string Region { get; } // название области (случайная строка с префиксом "reg_")
+        public string Postal { get; } // почтовый индекс (случайная строка с префиксом "pos_")
+        public string City { get; } // название города (случайная строка с префиксом "cit_")
+        public string Organization { get; } // название организации (случайная строка с префиксом "org_")
+        public float Latitude { get; } // широта
+        public float Longitude { get; } // долгота
+    } 
 }

@@ -1,12 +1,7 @@
 ﻿﻿namespace GeoReader.Entities
 {
-    internal class Geobase
+    public class Geobase
     {
-        public readonly Header Header;
-        public readonly IpRange[] IpRanges;
-        public readonly Location[] Locations;
-        public readonly uint[] Cities;
-
         public Geobase(Header header, IpRange[] ipRanges, Location[] locations, uint[] cities)
         {
             Header = header;
@@ -14,5 +9,10 @@
             Locations = locations;
             Cities = cities;
         }
+        
+        public Header Header { get; }
+        public IpRange[] IpRanges { get; }
+        public Location[] Locations { get; }
+        public uint[] Cities { get; }
     }
 }

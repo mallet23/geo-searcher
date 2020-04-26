@@ -2,13 +2,19 @@
 
 namespace GeoReader.Entities
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 12)]
-    public struct IpRange
+    public class IpRange
     {
-        public uint ip_from; // начало диапазона IP адресов
+        public IpRange(uint from, uint to, uint locationIndex)
+        {
+            From = from;
+            To = to;
+            LocationIndex = locationIndex;
+        }
 
-        public uint ip_to; // конец диапазона IP адресов
+        public uint From { get; } // начало диапазона IP адресов
 
-        public uint location_index; // индекс записи о местоположении
+        public uint To { get; } // конец диапазона IP адресов
+
+        public uint LocationIndex { get; } // индекс записи о местоположении
     }
 }
