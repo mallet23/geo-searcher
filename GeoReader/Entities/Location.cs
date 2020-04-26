@@ -4,6 +4,8 @@ namespace GeoReader.Entities
 {
     public class Location
     {
+        public const uint ByteSize = 96;
+
         public Location(string country, string region, string postal, string city, string organization, float latitude, float longitude)
         {
             Country = country;
