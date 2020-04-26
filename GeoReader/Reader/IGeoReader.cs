@@ -3,7 +3,7 @@ using GeoReader.Entities;
 
 namespace GeoReader.Reader
 {
-    public interface IGeoReader: IDisposable
+    public interface IGeoReader
     {
         Geobase Read();
     }
