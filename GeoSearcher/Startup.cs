@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace GeoSearcher
 {
@@ -21,15 +20,12 @@ namespace GeoSearcher
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(mvcOptions=>
-            {
-                mvcOptions.EnableEndpointRouting = false;
-            });
-            
+            services.AddControllersWithViews(mvcOptions => { mvcOptions.EnableEndpointRouting = false; });
+
             var reader = new GeoFileReader(Configuration["GeobasePath"]);
             services.AddSingleton(new GeobaseContext(reader));
             services.AddScoped<IGeobaseRepository, GeobaseRepository>();
-            
+
             services.AddMvc();
         }
 

@@ -5,7 +5,7 @@ using GeoReader.Extensions;
 
 namespace GeoReader.Reader
 {
-    public class GeoReader: IGeoReader, IDisposable
+    public class GeoReader : IGeoReader, IDisposable
     {
         private readonly BinaryReader _binaryReader;
 
@@ -14,13 +14,19 @@ namespace GeoReader.Reader
             _binaryReader = new BinaryReader(stream);
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public Geobase Read()
         {
             var header = ReadHeader();
             var ipRanges = ReadIpRanges(header.Records);
             var locations = ReadLocations(header.Records);
             var cities = ReadCityNameIndexes(header.Records);
-            
+
             return new Geobase(header, ipRanges, locations, cities);
         }
 
@@ -41,12 +47,10 @@ namespace GeoReader.Reader
         {
             var ranges = new IpRange[records];
             for (var i = 0; i < records; i++)
-            {
                 ranges[i] = new IpRange(
                     _binaryReader.ReadUInt32(),
                     _binaryReader.ReadUInt32(),
                     _binaryReader.ReadUInt32());
-            }
 
             return ranges;
         }
@@ -55,7 +59,6 @@ namespace GeoReader.Reader
         {
             var locations = new Location[records];
             for (var i = 0; i < records; i++)
-            {
                 locations[i] = new Location(
                     _binaryReader.ReadString(8),
                     _binaryReader.ReadString(12),
@@ -64,7 +67,6 @@ namespace GeoReader.Reader
                     _binaryReader.ReadString(32),
                     _binaryReader.ReadSingle(),
                     _binaryReader.ReadSingle());
-            }
 
             return locations;
         }
@@ -80,19 +82,10 @@ namespace GeoReader.Reader
 
             return cityNameIndexes;
         }
-        
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        
+
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                _binaryReader?.Dispose();
-            }
+            if (disposing) _binaryReader?.Dispose();
         }
     }
 }

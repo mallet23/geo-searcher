@@ -1,6 +1,4 @@
-﻿﻿using System.Runtime.InteropServices;
-
-namespace GeoReader.Entities
+﻿namespace GeoReader.Entities
 {
     public class IpRange
     {

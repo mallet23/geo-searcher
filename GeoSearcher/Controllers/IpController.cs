@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace GeoSearcher.Controllers
 {
     [Route("api/ip")]
-    public class IpController: BaseController
+    public class IpController : BaseController
     {
-        public IpController(IGeobaseRepository geobaseRepository) : base(geobaseRepository) { }
-        
+        public IpController(IGeobaseRepository geobaseRepository) : base(geobaseRepository)
+        {
+        }
+
         [HttpGet]
         [Route("{ip}/location")]
         public Location GetLocationByIp(string ip)

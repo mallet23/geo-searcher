@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Linq;
 
 namespace GeoSearcher.Extensions
@@ -13,10 +13,7 @@ namespace GeoSearcher.Extensions
                     : throw new ArgumentException(nameof(ip)))
                 .ToArray();
 
-            if (numbers.Length != 4)
-            {
-                throw new ArgumentException(nameof(ip));
-            }
+            if (numbers.Length != 4) throw new ArgumentException(nameof(ip));
 
             return BitConverter.ToUInt32(numbers, 0);
         }

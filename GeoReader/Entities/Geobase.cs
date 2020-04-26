@@ -1,4 +1,4 @@
-﻿﻿namespace GeoReader.Entities
+﻿namespace GeoReader.Entities
 {
     public class Geobase
     {
@@ -9,7 +9,7 @@
             Locations = locations;
             LocationByCityIndexes = locationByCityIndexes;
         }
-        
+
         public Header Header { get; }
         public IpRange[] IpRanges { get; }
         public Location[] Locations { get; }

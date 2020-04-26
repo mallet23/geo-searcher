@@ -1,13 +1,12 @@
-﻿﻿using System;
+﻿using System;
 using GeoReader.Entities;
 using GeoReader.Reader;
 
- namespace GeoSearcher.Infrastructure
+namespace GeoSearcher.Infrastructure
 {
     public class GeobaseContext
     {
-        private IGeoReader GeoReader { get; }
-        private Geobase _geobase;
+        private readonly Geobase _geobase;
 
         public GeobaseContext(IGeoReader reader)
         {
@@ -18,10 +17,12 @@ using GeoReader.Reader;
             LocationSortedByCity = _geobase.LocationByCityIndexes;
         }
 
+        private IGeoReader GeoReader { get; }
+
         public int Version => _geobase.Header.Version;
 
         public string Name => _geobase.Header.Name;
-        
+
         public int RecordsCount => _geobase.Header.Records;
 
         public DateTime Created => _geobase.Header.Timestamp;

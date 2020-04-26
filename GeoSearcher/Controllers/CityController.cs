@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace GeoSearcher.Controllers
 {
     [Route("api/city")]
-    public class CityController: BaseController
+    public class CityController : BaseController
     {
-        public CityController(IGeobaseRepository geobaseRepository) : base(geobaseRepository) { }
-        
+        public CityController(IGeobaseRepository geobaseRepository) : base(geobaseRepository)
+        {
+        }
+
         [HttpGet]
         [Route("{city}/locations")]
         public IEnumerable<Location> GetLocationsByCity(string city)

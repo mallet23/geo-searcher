@@ -1,5 +1,4 @@
-﻿using System;
-using GeoReader.Entities;
+﻿using GeoReader.Entities;
 
 namespace GeoReader.Reader
 {

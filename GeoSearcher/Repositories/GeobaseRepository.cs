@@ -4,7 +4,7 @@ using GeoSearcher.Infrastructure;
 
 namespace GeoSearcher.Repositories
 {
-    public class GeobaseRepository: IGeobaseRepository
+    public class GeobaseRepository : IGeobaseRepository
     {
         private readonly GeobaseContext _context;
 
@@ -33,35 +33,25 @@ namespace GeoSearcher.Repositories
                 }
 
                 if (string.CompareOrdinal(city, location.City) < 0)
-                {
                     max = mid - 1;
-                }
                 else
-                {
                     min = mid + 1;
-                }
             }
-            
+
             // перечисляем левую часть от найденного
             for (var i = foundIndex; i >= 0; i--)
             {
                 var locationIndex = _context.LocationSortedByCity[i];
-                if (_context.Locations[locationIndex].City != city)
-                {
-                    break;
-                }
+                if (_context.Locations[locationIndex].City != city) break;
 
                 yield return _context.Locations[locationIndex];
             }
-            
+
             // перечисляем правую часть от найденного
             for (var i = foundIndex + 1; i < _context.RecordsCount; i++)
             {
                 var locationIndex = _context.LocationSortedByCity[i];
-                if (_context.Locations[locationIndex].City != city)
-                {
-                    break;
-                }
+                if (_context.Locations[locationIndex].City != city) break;
 
                 yield return _context.Locations[locationIndex];
             }
@@ -81,13 +71,9 @@ namespace GeoSearcher.Repositories
                     return _context.Locations[range.LocationIndex];
 
                 if (ip < range.From)
-                {
                     max = mid - 1;
-                }
                 else
-                {
                     min = mid + 1;
-                }
             }
 
             return null;
