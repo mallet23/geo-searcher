@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using GeoReader.Entities;
+using GeoReader.Extensions;
 
 namespace GeoReader.Reader
 {
@@ -18,7 +19,7 @@ namespace GeoReader.Reader
             var header = ReadHeader();
             var ipRanges = ReadIpRanges(header.Records);
             var locations = ReadLocations(header.Records);
-            var cities = ReadCities(header.Records);
+            var cities = ReadCityNameIndexes(header.Records);
             
             return new Geobase(header, ipRanges, locations, cities);
         }
@@ -28,8 +29,8 @@ namespace GeoReader.Reader
             _binaryReader.BaseStream.Seek(0, SeekOrigin.Begin);
             return new Header(
                 _binaryReader.ReadInt32(),
-                _binaryReader.ReadString(),
-                DateTime.FromBinary(_binaryReader.ReadInt64()),
+                _binaryReader.ReadString(32),
+                _binaryReader.ReadDateTime(),
                 _binaryReader.ReadInt32(),
                 _binaryReader.ReadUInt32(),
                 _binaryReader.ReadUInt32(),
@@ -56,11 +57,11 @@ namespace GeoReader.Reader
             for (var i = 0; i < records; i++)
             {
                 locations[i] = new Location(
-                    _binaryReader.ReadString(),
-                    _binaryReader.ReadString(),
-                    _binaryReader.ReadString(),
-                    _binaryReader.ReadString(),
-                    _binaryReader.ReadString(),
+                    _binaryReader.ReadString(8),
+                    _binaryReader.ReadString(12),
+                    _binaryReader.ReadString(12),
+                    _binaryReader.ReadString(24),
+                    _binaryReader.ReadString(32),
                     _binaryReader.ReadSingle(),
                     _binaryReader.ReadSingle());
             }
@@ -68,15 +69,16 @@ namespace GeoReader.Reader
             return locations;
         }
 
-        private uint[] ReadCities(int records)
+        private uint[] ReadCityNameIndexes(int records)
         {
-            var cities = new uint[records];
+            var cityNameIndexes = new uint[records];
             for (var i = 0; i < records; i++)
             {
-                cities[i] = _binaryReader.ReadUInt32();
+                var offset = _binaryReader.ReadUInt32();
+                cityNameIndexes[i] = offset / Location.ByteSize;
             }
 
-            return cities;
+            return cityNameIndexes;
         }
         
         public void Dispose()
