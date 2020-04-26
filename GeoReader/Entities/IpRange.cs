@@ -1,9 +1,9 @@
 ﻿﻿using System.Runtime.InteropServices;
 
-namespace GeoDatabase.Entities
+namespace GeoReader.Entities
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 12)]
-    public struct Range
+    public struct IpRange
     {
         public uint ip_from; // начало диапазона IP адресов
 
