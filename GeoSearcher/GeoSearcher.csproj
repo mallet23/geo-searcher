@@ -40,4 +40,15 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GeoReader\GeoReader.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="geobase.dat" />
+      <Content Include="geobase.dat">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
