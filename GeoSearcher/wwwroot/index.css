@@ -1,0 +1,121 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.container {
+    padding: 20px;
+}
+
+/*    sidebar    */
+
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 20px;
+    bottom: 0;
+    width: 250px;
+}
+
+.tab {
+    background-color: #272c40;
+    color: #8b91a0;
+    padding: 10px 15px;
+    margin-bottom: 2px;
+}
+
+    .tab:hover {
+        background-color: #40465d;
+        color: #FFF;
+        cursor: pointer;
+    }
+
+    .tab.active {
+        background-color: #40465d;
+        color: #FFF;
+    }
+
+/*  common  */
+
+.tabs-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-left: 250px;
+}
+
+.title {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+/*   form   */
+
+.tabs-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.tabs-container input {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    min-width: 500px;
+}
+
+    .tabs-container input:focus {
+        outline: none;
+        border: 1px solid #5181b8;
+    }
+
+/*    submit button    */
+
+.tabs-container button {
+    background-color: #272c40;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    width: 100px;
+}
+
+    .tabs-container button:active {
+        background-color: #272c40;
+        outline: none;
+    }
+
+    .tabs-container button:focus {
+        outline: none;
+    }
+
+    .tabs-container button:hover {
+        background-color: #40465d;
+        cursor: pointer;
+    }
+
+.tab-content {
+    display: none;
+}
+
+    .tab-content.active {
+        display: block;
+    }
+
+/*   output   */
+
+.output {
+    padding: 20px 0;
+    white-space: pre-wrap;
+    height: calc(100vh - 300px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #f7f4f4;
+}
+
+.output-empty {
+    font-style: italic;
+    color: #313030;
+    background-color: #f7f4f4;
+}
+
+    .output-empty.hidden {
+        display: none;
+    }
