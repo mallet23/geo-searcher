@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace GeoSearcher
 {
@@ -32,11 +33,7 @@ namespace GeoSearcher
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseExceptionHandler(new ExceptionHandlerOptions
-            {
-                ExceptionHandler = new JsonExceptionMiddleware(env).Invoke
-            });
-
+            app.UseExceptionHandler(env.IsDevelopment() ? "/error/dev" : "/error");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
