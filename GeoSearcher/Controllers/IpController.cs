@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeoSearcher.Controllers
 {
-    [Route("api/ip")]
+    [Route("ip")]
     public class IpController : GeoBaseController
     {
         public IpController(IGeobaseRepository geobaseRepository) : base(geobaseRepository)
@@ -13,7 +13,7 @@ namespace GeoSearcher.Controllers
         }
 
         [HttpGet]
-        [Route("{ip}/location")]
+        [Route("location")]
         public Location GetLocationByIp(string ip)
         {
             var ipInt = ip.ConvertIpToInt();

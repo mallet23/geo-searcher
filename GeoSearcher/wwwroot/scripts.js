@@ -14,12 +14,12 @@ class GeoManager {
 
     getLocationByIP = async () => {
         const input = document.getElementById("ip-address");
-        await this._makeRequest(`api/ip/${input.value}/location`);
+        await this._makeRequest(`ip/location?ip=${input.value}`);
     }
 
     getLocationByCity = async (e) => {
         const input = document.getElementById("city-name");
-        await this._makeRequest(`api/city/cit_${input.value}/locations`);
+        await this._makeRequest(`city/locations?city=cit_${input.value}`);
     }
 
     _makeRequest = async (url) => {
