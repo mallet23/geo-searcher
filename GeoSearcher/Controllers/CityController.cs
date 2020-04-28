@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GeoSearcher.Controllers
 {
     [Route("api/city")]
-    public class CityController : BaseController
+    public class CityController : GeoBaseController
     {
         public CityController(IGeobaseRepository geobaseRepository) : base(geobaseRepository)
         {

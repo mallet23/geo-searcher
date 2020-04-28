@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeoSearcher.Controllers
 {
-    [Route("api")]
-    public class BaseController : Controller
+    [ApiController]
+    public class GeoBaseController : Controller
     {
-        public BaseController(IGeobaseRepository geobaseRepository)
+        public GeoBaseController(IGeobaseRepository geobaseRepository)
         {
             GeobaseRepository = geobaseRepository;
         }

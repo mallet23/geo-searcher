@@ -5,13 +5,13 @@ namespace GeoReader.Reader
 {
     public class GeoFileReader : IGeoReader
     {
+        public string FileName { get; }
+        
         public GeoFileReader(string fileName)
         {
             FileName = fileName;
         }
-
-        public string FileName { get; }
-
+        
         public Geobase Read()
         {
             using var stream = File.Open(FileName, FileMode.Open);

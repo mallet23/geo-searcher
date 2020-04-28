@@ -14,12 +14,6 @@ namespace GeoReader.Reader
             _binaryReader = new BinaryReader(stream);
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public Geobase Read()
         {
             var header = ReadHeader();
@@ -81,6 +75,12 @@ namespace GeoReader.Reader
             }
 
             return cityNameIndexes;
+        }
+        
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
