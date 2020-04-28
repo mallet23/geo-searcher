@@ -1,77 +1,66 @@
-const openTab = function(tab) {
-    const activeElements = [].slice.call(document.getElementsByClassName("active"));
-    activeElements.forEach(function (el) {
-        toggleClass(el, "active", false);
-    });
+class GeoManager {
+    openTab = (tab) => {
+        const toggleClass = this._toggleClass;
+        const activeElements = [].slice.call(document.getElementsByClassName("active"));
+        activeElements.forEach(function (el) {
+            toggleClass(el, "active", false);
+        });
 
-    const selectedElements = [].slice.call(document.getElementsByClassName(tab));
-    selectedElements.forEach(function(el) {
-        toggleClass(el, "active", true);
-    });
-};
+        const selectedElements = [].slice.call(document.getElementsByClassName(tab));
+        selectedElements.forEach(function(el) {
+            toggleClass(el, "active", true);
+        });
+    }
 
-const getLocationByIP = function () {
-    
-    const input = document.getElementById("ip-address");
+    getLocationByIP = async () => {
+        const input = document.getElementById("ip-address");
+        await this._makeRequest(`api/ip/${input.value}/location`);
+    }
 
-    request("GET", "api/ip/" + input.value + "/location", setResult);
+    getLocationByCity = async (e) => {
+        const input = document.getElementById("city-name");
+        await this._makeRequest(`api/city/cit_${input.value}/locations`);
+    }
 
-    return false;
-}
+    _makeRequest = async (url) => {
+        let response = await fetch(url);
 
-const getLocationByCity = function () {
-    const input = document.getElementById("city-name");
+        if (response.status !== 200) {
+            console.error(response.statusText);
+        }
 
-    request("GET", "api/city/cit_" + input.value + "/locations", setResult);
+        const result =  await response.json();
+        this._setResult(result);
+    }
 
-    return false;
-}
+    _setResult = (result) => {
+        const hasResult = !this._isNullOrEmpty(result);
 
-const setResult = function (responseText) {
-    const result = responseText && JSON.parse(responseText);
-    const hasResult = !isNullOrEmpty(result);
+        const output = document.querySelector(".active .output");
+        output.innerText = hasResult ? this._beautifyJson(result) : "";
 
-    const output = document.querySelector(".active .output");
-    output.innerText = hasResult ? beautifyJson(result) : "";
+        const emptyOutput = document.querySelector(".active .output-empty");
+        this._toggleClass(emptyOutput, "hidden", hasResult);
+    }
 
-    const emptyOutput = document.querySelector(".active .output-empty");
-    toggleClass(emptyOutput, "hidden", hasResult);
-}
+    _isNullOrEmpty = (value) => {
+        return value === undefined
+            || value === null
+            || value === ""
+            || (Array.isArray(value) && value.length === 0);
+    }
 
-const isNullOrEmpty = function (value) {
-    return value === undefined
-        || value === null
-        || value === ""
-        || (Array.isArray(value) && value.length === 0);
-}
+    _toggleClass = (element, className, state) => {
+        if (state) {
+            element.classList.add(className);
+        } else {
+            element.classList.remove(className);
+        }
+    }
 
-const toggleClass = function (element, className, state) {
-    if (state) {
-        element.classList.add(className);
-    } else {
-        element.classList.remove(className);
+    _beautifyJson = (jsonResponse) => {
+        return JSON.stringify(jsonResponse, null, 4);
     }
 } 
 
-const beautifyJson = function(jsonResponse) {
-    return JSON.stringify(jsonResponse, null, 4);
-}
-
-const request = function (method, url, onload) {
-    const xhr = new XMLHttpRequest();
-    
-    xhr.open(method, url, true);
-    xhr.onload = function (e) {
-        if (xhr.readyState === 4) {
-            onload(xhr.responseText);
-
-            if (xhr.status !== 200) {
-                console.error(xhr.statusText);
-            }
-        }
-    };
-    xhr.onerror = function (e) {
-        console.error(xhr.statusText);
-    };
-    xhr.send();
-}
+const GeoController =  new GeoManager();
